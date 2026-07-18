@@ -31,6 +31,22 @@ const useWindowStore = create(
                 const win = state.windows[windowKey];
                 win.zIndex = state.nextZIndex++;
             }),
+
+            toggleWindow: (windowKey, data = null) =>
+                set((state) => {
+                        const win = state.windows[windowKey];
+                        if (!win) return;
+
+                        if (win.isOpen) {
+                                win.isOpen = false;
+                                win.zIndex = INITIAL_Z_INDEX;
+                                win.data = null;
+                        } else {
+                                win.isOpen = true;
+                                win.zIndex = state.nextZIndex++;
+                                win.data = data ?? win.data;
+                        }
+                }),
     }))
 );
 
