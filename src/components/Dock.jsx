@@ -58,10 +58,6 @@ const Dock = () => {
         }
     },[]);
 
-    const toggleApp = (id,canOpen) => {
-        if(!canOpen) return;
-        toggleWindow(id);
-    };
     return (
         <section id={"dock"}>
             <div ref={dockref} className={"dock-container"}>
@@ -74,8 +70,8 @@ const Dock = () => {
                          data-tooltip-id={"dock-tooltip"}
                          data-tooltip-content={name}
                          data-tooltip-delay-show={150}
-                         disables={!canOpen}
-                         onClick={() => toggleApp(id,canOpen)}
+                         disabled={!canOpen}
+                         onClick={() => toggleWindow(id)}
                         >
                             <img
                               src={`/images/${icon}`}
