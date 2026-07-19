@@ -32,21 +32,24 @@ const useWindowStore = create(
                 win.zIndex = state.nextZIndex++;
             }),
 
-            toggleWindow: (windowKey, data = null) =>
-                set((state) => {
-                        const win = state.windows[windowKey];
-                        if (!win) return;
+        toggleWindow: (windowKey, data = null) =>
+            set((state) => {
+                const win = state.windows[windowKey];
+                if (!win) return;
 
-                        if (win.isOpen) {
-                                win.isOpen = false;
-                                win.zIndex = INITIAL_Z_INDEX;
-                                win.data = null;
-                        } else {
-                                win.isOpen = true;
-                                win.zIndex = state.nextZIndex++;
-                                win.data = data ?? win.data;
-                        }
-                }),
+                const isSameData =
+                    data && win.data && (data.id ? data.id === win.data.id : data.name === win.data.name);
+
+                if (win.isOpen && (!data || isSameData)) {
+                    win.isOpen = false;
+                    win.zIndex = INITIAL_Z_INDEX;
+                    win.data = null;
+                } else {
+                    win.isOpen = true;
+                    win.zIndex = state.nextZIndex++;
+                    win.data = data ?? win.data;
+                }
+            }),
     }))
 );
 

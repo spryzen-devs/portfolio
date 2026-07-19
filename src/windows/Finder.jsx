@@ -9,7 +9,7 @@ import {clsx} from "clsx";
 import useWindowStore from "#store/window.js";
 
 const Finder = () => {
-    const {openWindow} = useWindowStore();
+    const {toggleWindow} = useWindowStore();
     const activeLocation = useLocationStore(
         (state) => state.activeLocation
     );
@@ -19,11 +19,11 @@ const Finder = () => {
     );
 
     const openItem = (item) => {
-        if(item.fileType === "pdf") return openWindow('resume');
+        if(item.fileType === "pdf") return toggleWindow('resume');
         if(item.kind === "folder") return setActiveLocation(item);
         if(['fig','url'].includes(item.fileType)&&item.href)
             return window.open(item.href,'_blank');
-        openWindow(`${item.fileType}${item.kind}`,item);
+        toggleWindow(`${item.fileType}${item.kind}`,item);
     }
     return (
         <>
