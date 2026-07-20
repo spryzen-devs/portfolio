@@ -1,87 +1,106 @@
-import React from "react";
+import React, { useRef } from "react";
 import WindowControll from "#components/WindowControll.jsx";
 import WindowWrapper from "#hoc/WindowWrapper.jsx";
 import {
     ChevronLeft,
     ChevronRight,
-    Copy,
     MoveRight,
     PanelLeft,
     Plus,
     Search,
     Share,
     ShieldHalf,
+    LayoutGrid,
 } from "lucide-react";
 import { blogPosts } from "#constants/index.js";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const Safari = () => {
+    const blogRef = useRef(null);
+
+    useGSAP(() => {
+        gsap.from(".blog-post", {
+            opacity: 0,
+            y: 30,
+            stagger: 0.2,
+            duration: 0.8,
+            ease: "power3.out",
+        });
+    }, { scope: blogRef });
+
     return (
         <>
             {/* Header */}
             <div id="window-header">
-                <WindowControll target="safari" />
+                <div className="flex items-center gap-4">
+                    <WindowControll target="safari" />
+                    <PanelLeft className="icon ml-2 text-slate-400" />
+                </div>
 
-                <PanelLeft className="ml-10 icon" />
-
-                <div className="flex items-center gap-1 ml-5">
-                    <ChevronLeft className="icon" />
-                    <ChevronRight className="icon" />
+                <div className="flex items-center gap-1">
+                    <ChevronLeft className="icon opacity-20 text-slate-400" />
+                    <ChevronRight className="icon opacity-20 text-slate-400" />
                 </div>
 
                 <div className="flex-1 flex-center gap-3">
-                    <ShieldHalf className="icon" />
-
                     <div className="search">
-                        <Search className="icon" />
+                        <ShieldHalf className="size-4 text-slate-500" />
                         <input
                             type="text"
-                            placeholder="Search website name"
+                            placeholder="shantharam.dev"
                             className="flex-1"
+                            readOnly
                         />
+                        <Search className="size-4 text-slate-600" />
                     </div>
                 </div>
 
-                <div className="flex items-center gap-5">
-                    <Share className="icon" />
-                    <Plus className="icon" />
-                    <Copy className="icon" />
+                <div className="flex items-center gap-4">
+                    <Share className="icon text-slate-400" />
+                    <Plus className="icon text-slate-400" />
+                    <LayoutGrid className="icon text-slate-400" />
                 </div>
             </div>
 
             {/* Main Content */}
-            <div className="blog">
-                <h2>My Developer Blog</h2>
+            <div className="blog-container" ref={blogRef}>
+                <div className="blog">
+                    <div className="blog-header">
+                        <h2>Featured Articles</h2>
+                        <p>Insights, tutorials, and deep dives into modern web development.</p>
+                    </div>
 
-                <div className="space-y-8">
-                    {blogPosts.map(({ id, image, title, date, link }) => (
-                        <div key={id} className="blog-post">
-                            <div className="col-span-2">
-                                <img
-                                    src={image}
-                                    alt={title}
-                                    className="w-full h-full object-cover rounded-lg"
-                                />
+                    <div className="blog-grid">
+                        {blogPosts.map(({ id, image, title, date, link }) => (
+                            <div key={id} className="blog-post">
+                                <div className="post-image-wrapper">
+                                    <img
+                                        src={image}
+                                        alt={title}
+                                    />
+                                </div>
+
+                                <div className="content">
+                                    <div>
+                                        <div className="date-tag">{date}</div>
+                                        <h3 onClick={() => window.open(link, '_blank')}>
+                                            {title}
+                                        </h3>
+                                    </div>
+
+                                    <a
+                                        href={link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Read Article
+                                        <MoveRight size={16} />
+                                    </a>
+                                </div>
                             </div>
-
-                            <div className="content">
-                                <p className="text-sm text-gray-500">{date}</p>
-
-                                <h3 className="font-semibold text-lg">
-                                    {title}
-                                </h3>
-
-                                <a
-                                    href={link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-2 mt-3 hover:underline"
-                                >
-                                    Check out the full post
-                                    <MoveRight className="icon-hover" size={18} />
-                                </a>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </>

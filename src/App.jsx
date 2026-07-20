@@ -13,6 +13,7 @@ import Text from "#windows/Text.jsx";
 import Image from "#windows/Image.jsx";
 import Contact from "#windows/Contact.jsx";
 import Gallery from "#windows/Gallery.jsx";
+import Archive from "#windows/Archive.jsx";
 gsap.registerPlugin(Draggable);
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
             <Image/>
             <Contact/>
             <Gallery/>
+            <Archive/>
         </main>
     )
 }

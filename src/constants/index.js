@@ -67,10 +67,10 @@ const dockApps = [
         canOpen: true,
     },
     {
-        id: "trash",
+        id: "archive",
         name: "Archive", // was "Trash"
         icon: "trash.png",
-        canOpen: false,
+        canOpen: true,
     },
 ];
 
@@ -131,28 +131,28 @@ const socials = [
         id: 1,
         text: "Github",
         icon: "/icons/github.svg",
-        bg: "#f4656b",
+        bg: "#24292e",
         link: "https://github.com/JavaScript-Mastery-Pro",
     },
     {
         id: 2,
         text: "Platform",
         icon: "/icons/atom.svg",
-        bg: "#4bcb63",
+        bg: "#0ea5e9",
         link: "https://jsmastery.com/",
     },
     {
         id: 3,
         text: "Twitter/X",
         icon: "/icons/twitter.svg",
-        bg: "#ff866b",
+        bg: "#000000",
         link: "https://x.com/jsmasterypro",
     },
     {
         id: 4,
         text: "LinkedIn",
         icon: "/icons/linkedin.svg",
-        bg: "#05b6f6",
+        bg: "#0077b5",
         link: "https://www.linkedin.com/company/javascriptmastery/posts/?feedView=all",
     },
 ];
@@ -501,6 +501,7 @@ const WINDOW_CONFIG = {
     terminal: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
     txtfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
     imgfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
+    archive: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
 };
 
 export { INITIAL_Z_INDEX, WINDOW_CONFIG };
